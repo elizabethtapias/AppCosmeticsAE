@@ -3,6 +3,6 @@ Integrantes:
 Andrea Carolina Herrera
 Elizabeth Tapias Acevedo
 
-Login: 
+Login --> 
 UserName: admin
-Login: 123
+Password: 123
