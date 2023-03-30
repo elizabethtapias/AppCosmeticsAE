@@ -13,6 +13,7 @@ using System.IO;
 using Path = System.IO.Path;
 namespace AppCosmeticsAE
 {
+    #region Uso de datos de un usuario
     public class Login
     {
         public Login() { }
@@ -27,7 +28,28 @@ namespace AppCosmeticsAE
         [MaxLength(20)]
         public string Password { get; set; }
     }
+    #endregion
 
+    #region Uso de datos para contacto
+    public class contact  
+    {
+        public contact() { }
+        [PrimaryKey, AutoIncrement] /*cuando no se quiere autoincrementar se debe quitar la palabra AutoIncrement de la clase contact en este caso 
+                                     y si estoy utilizando el método guardar se debe mandar el campo y sino va a salir un error en la base de datos
+                                     en la línea 70 de Contact.cs Toast.MakeText(this, "Please enter the required fields",ToastLength.Long ).Show();*/
+
+
+        public int Id { set; get; }
+        
+        public string Name { set; get; }
+        public string LastName { set; get; }
+        public int Number { set; get; }
+        public string Email { get; set; }
+        public string Need { get; set; }
+
+    }
+
+    #endregion
 
     #region Manejo de datos y conexion a BD
     public class Auxiliar
@@ -38,6 +60,7 @@ namespace AppCosmeticsAE
         {
             conexion = ConectarBD();
             conexion.CreateTable<Login>();
+            conexion.CreateTable<contact>();
         }
 
         public SQLite.SQLiteConnection ConectarBD()
@@ -60,7 +83,17 @@ namespace AppCosmeticsAE
             }
         }
 
-        //Selecionar Muchos
+        //Contactar
+        public contact SendRequest(string Name)
+        {
+            lock (locker)
+            {
+                return conexion.Table<contact>().FirstOrDefault(x => x.Name == Name);
+            }
+        }
+
+        //Selecionar Muchos{
+
         public IEnumerable<Login> SeleccionarTodo()
         {
             lock (locker)
@@ -69,9 +102,33 @@ namespace AppCosmeticsAE
             }
         }
 
+        //Seleccionar todas las solicitudes 
+        public IEnumerable<contact> SeleccionarTodosMensajes()
+        {
+            lock (locker)
+            {
+                return (from i in conexion.Table<contact>() select i).ToList();
+            }
+        }
+
         //Guardar
         //Actualizar o insertar
         public int Guardar(Login registro)
+        {
+            lock (locker)
+            {
+                if (registro.Id == 0)
+                {
+                    return conexion.Insert(registro);
+                }
+                else
+                {
+                    return conexion.Update(registro);
+                }
+            }
+        }
+
+        public int GuardarMensaje(contact registro)
         {
             lock (locker)
             {
@@ -94,16 +151,16 @@ namespace AppCosmeticsAE
             }
         }
 
+        public int EliminarMensaje(string Name)
+        {
+            lock (locker)
+            {
+                return conexion.Delete<contact>(Name);
+            }
+        }
+
     }
     #endregion
-    /*[Activity(Label = "Connection")]
-    public class Connection : Activity
-    {
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
 
-            // Create your application here
-        }
-    }*/
 }
+

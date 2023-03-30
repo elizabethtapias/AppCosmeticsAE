@@ -20,7 +20,6 @@ namespace AppCosmeticsAE
         {
             base.OnCreate(savedInstanceState);
 
-          
             btnHome = FindViewById<Button>(Resource.Id.btnHome);
 
             btnHome.Click += BtnHome_Click;

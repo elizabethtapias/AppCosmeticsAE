@@ -14,8 +14,7 @@ namespace AppCosmeticsAE
         EditText txtPassword;
         Button btnLogin;
         Button btnRegister;
-        string user;
-        string password;
+        
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -31,8 +30,8 @@ namespace AppCosmeticsAE
             btnLogin.Click += BtnLogin_Click;
             btnRegister.Click += BtnRegister_Click;
 
-            user = "admin";
-            password = "123";
+            /*user = "admin";
+            password = "123";*/
 
         }
 
@@ -44,7 +43,7 @@ namespace AppCosmeticsAE
 
         private void BtnLogin_Click(object sender, System.EventArgs e)
         {
-            if (txtUserName.Text == user && txtPassword.Text == password)
+            /*if (txtUserName.Text == user && txtPassword.Text == password)
             {
                 Intent i = new Intent(this, typeof(Home));
                 StartActivity(i);
@@ -52,10 +51,10 @@ namespace AppCosmeticsAE
             else
             {
                 Toast.MakeText(this, "Invalid username and/or password(s)", ToastLength.Long).Show();
-            }
-        }
+            }*/
 
-        /*try
+
+            try
             {
                 Login resultado = null;
                 if (!string.IsNullOrEmpty(txtUserName.Text.Trim()) && !string.IsNullOrEmpty(txtPassword.Text.Trim()))
@@ -84,12 +83,13 @@ namespace AppCosmeticsAE
             catch
             {
 
-            }*/
+            }
 
 
+        }
+
+        //throw new System.NotImplementedException();
     }
-   
-    //throw new System.NotImplementedException();
 }
         
     

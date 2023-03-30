@@ -21,7 +21,7 @@ namespace AppCosmeticsAE
         {
 
             base.OnCreate(savedInstanceState);
-
+            SetContentView(Resource.Layout.RegisterUser); //Linea que se utiliza para mover centros de actividades o para cargar una actividad
             txtUserNameNew = FindViewById<EditText>(Resource.Id.txtUserNameNew);
             txtPasswordNew = FindViewById<EditText>(Resource.Id.txtPasswordNew);
             btnRegisterUser = FindViewById<Button>(Resource.Id.btnRegister);
